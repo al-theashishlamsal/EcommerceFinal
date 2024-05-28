@@ -41,10 +41,10 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // Trigger email verification notification
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        // Redirect to a page indicating that email verification is required
+        return redirect()->route('verification.notice')->with('status', 'Please verify your email address.');
     }
 }

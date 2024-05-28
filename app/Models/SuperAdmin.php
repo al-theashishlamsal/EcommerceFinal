@@ -45,4 +45,5 @@ class SuperAdmin extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
 }

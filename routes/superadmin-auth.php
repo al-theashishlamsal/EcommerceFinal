@@ -33,3 +33,5 @@ Route::middleware('auth:superadmin')->prefix('superadmin')->name('superadmin.')-
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 });
+
+
