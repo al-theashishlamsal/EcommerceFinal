@@ -131,4 +131,11 @@ class ProductController extends Controller
         // Redirect to the products index or do something else
         return redirect()->route('backend.products.index');
     }
+
+
+    public function getBrands($categoryId)
+    {
+        $brands = Brand::where('category_id', $categoryId)->get();
+        return response()->json($brands);
+    }
 }

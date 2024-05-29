@@ -1,4 +1,3 @@
-<!-- create.blade.php -->
 @extends('layouts2.superadmin')
 
 @section('content')
@@ -35,8 +34,8 @@
             <!-- Category -->
             <div class="form-group">
                 <label for="category_id">Category</label>
-                <select name="category_id" class="form-control" required>
-                    <!-- Populate categories from the database -->
+                <select name="category_id" id="category_id" class="form-control" required>
+                    <option value="">Select Category</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                     @endforeach
@@ -46,11 +45,8 @@
             <!-- Brand -->
             <div class="form-group">
                 <label for="brand_id">Brand</label>
-                <select name="brand_id" class="form-control" required>
-                    <!-- Populate brands from the database -->
-                    @foreach ($brands as $brand)
-                        <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
-                    @endforeach
+                <select name="brand_id" id="brand_id" class="form-control" required>
+                    <option value="">Select Brand</option>
                 </select>
             </div>
 
@@ -79,4 +75,36 @@
             <button type="submit" class="btn btn-primary">Create</button>
         </form>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#category_id').change(function() {
+                var categoryId = $(this).val();
+                if (categoryId) {
+                    $.ajax({
+                        url: '/backend/categories/' + categoryId +
+                        '/brands', // Ensure the prefix is included
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#brand_id').empty();
+                            $('#brand_id').append('<option value="">Select Brand</option>');
+                            $.each(data, function(key, value) {
+                                $('#brand_id').append('<option value="' + value.id +
+                                    '">' + value.brand_name + '</option>');
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error retrieving brands: " + error);
+                            alert('Error retrieving brands');
+                        }
+                    });
+                } else {
+                    $('#brand_id').empty();
+                    $('#brand_id').append('<option value="">Select Brand</option>');
+                }
+            });
+        });
+    </script>
 @endsection

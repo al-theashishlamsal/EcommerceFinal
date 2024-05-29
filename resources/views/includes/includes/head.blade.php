@@ -83,6 +83,8 @@
 
     {{-- <script src="js/tinymce_editor.js"></script> --}}
 
+    
+
     <script>
         var isRTL = JSON.parse(localStorage.getItem('isRTL'));
         if (isRTL) {

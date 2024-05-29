@@ -61,6 +61,7 @@ Route::middleware(['auth:superadmin'])->prefix('backend')->name('backend.')->gro
     Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+    
 
 
     Route::get('/brands', [BrandController::class, 'index'])->name('brands.index');
@@ -70,6 +71,8 @@ Route::middleware(['auth:superadmin'])->prefix('backend')->name('backend.')->gro
     Route::put('/brands/{brand}', [BrandController::class, 'update'])->name('brands.update');
     Route::delete('/brands/{brand}', [BrandController::class, 'destroy'])->name('brands.destroy');
 
+   
+
 
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
@@ -77,6 +80,7 @@ Route::middleware(['auth:superadmin'])->prefix('backend')->name('backend.')->gro
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::get('/categories/{category}/brands', [ProductController::class, 'getBrands'])->name('products.getBrands');
 
 
 Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');

@@ -89,6 +89,15 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function getBrandsByCategory($category_id)
+    {
+        $brands = Brand::where('category_id', $category_id)->get();
+        return response()->json($brands);
+    }
+
+
+
+
     public function destroy($id)
     {
         $brand = Brand::findOrFail($id);
