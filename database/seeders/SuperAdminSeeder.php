@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\SuperAdmin;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use App\Models\SuperAdmin;
+use Spatie\Permission\Models\Role;
 
 class SuperAdminSeeder extends Seeder
 {
@@ -13,10 +14,19 @@ class SuperAdminSeeder extends Seeder
      */
     public function run(): void
     {
-        $superadmin = new SuperAdmin();
-        $superadmin->name = 'Superadmin Name';
-        $superadmin->email = 'superadmin@example.com';
-        $superadmin->password = Hash::make('password1');
-        $superadmin->save();
+        // Create SuperAdmin user
+        $superadmin = SuperAdmin::firstOrCreate(
+            ['email' => 'superadmin@example.com'],
+            [
+                'name' => 'Superadmin Name',
+                'password' => Hash::make('password1')
+            ]
+        );
+
+        // Assign admin role to SuperAdmin
+        $adminRole = Role::where('name', 'admin')->first();
+        if ($adminRole && $superadmin) {
+            $superadmin->assignRole($adminRole);
+        }
     }
 }

@@ -61,46 +61,56 @@
                     </a>
                     <ul class="nav collapse" id="product-management">
                         <!-- Add link to product categories -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('backend.categories.index') }}">Categories</a>
-                        </li>
+                        @can('create_categories')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('backend.categories.index') }}">Categories</a>
+                            </li>
+                        @endcan
+
                         <!-- Add link to product brands -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('backend.brands.index') }}">Brands</a>
-                        </li>
+                        @can('create_brands')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('backend.brands.index') }}">Brands</a>
+                            </li>
+                        @endcan
+
                         <!-- Add link to products -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('backend.products.index') }}">Products</a>
-                        </li>
+                        @can('create_products')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('backend.products.index') }}">Products</a>
+                            </li>
+                        @endcan
                     </ul>
                 </li>
 
 
 
-                <!-- Order Management Dropdown -->
-                <li class="nav-item">
-                    <a class="nav-link dropdown-indicator" href="#order-management" role="button"
-                        data-bs-toggle="collapse" aria-expanded="false" aria-controls="order-management">
-                        <div class="d-flex align-items-center">
-                            <span class="nav-link-icon">
-                                <svg class="svg-inline--fa fa-shopping-cart fa-w-18" aria-hidden="true"
-                                    focusable="false" data-prefix="fas" data-icon="shopping-cart" role="img"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                                    <path fill="currentColor"
-                                        d="M512 160h-64V64c0-35.35-28.65-64-64-64H192c-35.35 0-64 28.65-64 64v96H64c-35.35 0-64 28.65-64 64v256c0 35.35 28.65 64 64 64h448c35.35 0 64-28.65 64-64V224c0-35.35-28.65-64-64-64zm-256-96c0-17.67 14.33-32 32-32h192c17.67 0 32 14.33 32 32v96H256V64zm-64 416H96v-64h96zm0-128H96v-64h96zm0-128H96v-64h96zm128 256H160v-64h128zm0-128H160v-64h128zm0-128H160v-64h128zm192 256H288v-64h192zm0-128H288v-64h192zm0-128H288v-64h192z">
-                                    </path>
-                                </svg>
-                            </span>
-                            <span class="nav-link-text ps-1">Order Management</span>
-                        </div>
-                    </a>
-                    <ul class="nav collapse" id="order-management">
-                        <!-- Add link to orders -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('backend.orders.index') }}">Orders</a>
-                        </li>
-                    </ul>
-                </li>
+                
+                    <!-- Order Management Dropdown -->
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-indicator" href="#order-management" role="button"
+                            data-bs-toggle="collapse" aria-expanded="false" aria-controls="order-management">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <svg class="svg-inline--fa fa-shopping-cart fa-w-18" aria-hidden="true"
+                                        focusable="false" data-prefix="fas" data-icon="shopping-cart" role="img"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                        <path fill="currentColor"
+                                            d="M512 160h-64V64c0-35.35-28.65-64-64-64H192c-35.35 0-64 28.65-64 64v96H64c-35.35 0-64 28.65-64 64v256c0 35.35 28.65 64 64 64h448c35.35 0 64-28.65 64-64V224c0-35.35-28.65-64-64-64zm-256-96c0-17.67 14.33-32 32-32h192c17.67 0 32 14.33 32 32v96H256V64zm-64 416H96v-64h96zm0-128H96v-64h96zm0-128H96v-64h96zm128 256H160v-64h128zm0-128H160v-64h128zm0-128H160v-64h128zm192 256H288v-64h192zm0-128H288v-64h192zm0-128H288v-64h192z">
+                                        </path>
+                                    </svg>
+                                </span>
+                                <span class="nav-link-text ps-1">Order Management</span>
+                            </div>
+                        </a>
+                        <ul class="nav collapse" id="order-management">
+                            <!-- Add link to orders -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('backend.orders.index') }}">Orders</a>
+                            </li>
+                        </ul>
+                    </li>
+                
 
 
                 <!-- Customers Link -->

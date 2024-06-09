@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles; // Import the HasRoles trait
 
 class SuperAdmin extends Authenticatable
 {
-    use HasFactory, Notifiable;
-    protected $guard = "superadmin" ;
+    use HasFactory, Notifiable, HasRoles; // Add HasRoles trait here
+
+    protected $guard = "superadmin";
 
     /**
      * The attributes that are mass assignable.

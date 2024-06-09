@@ -18,10 +18,10 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->integer('product_quantity');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->unsignedBigInteger('brand_id');
-            $table->foreign('brand_id')->references('id')->on('brands')->nullable();
+            $table->foreignId('brand_id')->nullable()->constrained()->onDelete('set null'); // updated for nullable foreign key constraint
             $table->string('material')->nullable();
             $table->string('product_image');
+            $table->json('other_images')->nullable();// new column for other images
             $table->enum('status', ['active', 'inactive']);
             $table->timestamps();
         });

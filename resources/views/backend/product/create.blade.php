@@ -4,6 +4,28 @@
     <div class="container">
         <h1>Create Product</h1>
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <form action="{{ route('backend.products.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
@@ -59,7 +81,18 @@
             <!-- Product Image -->
             <div class="form-group">
                 <label for="product_image">Product Image</label>
-                <input type="file" name="product_image" class="form-control-file">
+                <input type="file" name="product_image" id="product_image" class="form-control-file"
+                    onchange="previewImage(this, 'product_image_preview')">
+                <img id="product_image_preview" src="" alt="Product Image Preview"
+                    style="max-width: 200px; margin-top: 10px;">
+            </div>
+
+            <!-- Other Images -->
+            <div class="form-group">
+                <label for="other_images">Other Images</label>
+                <input type="file" name="other_images[]" id="other_images" class="form-control-file" multiple
+                    onchange="previewMultipleImages(this, 'other_images_preview')">
+                <div id="other_images_preview" style="margin-top: 10px; display: flex; flex-wrap: wrap;"></div>
             </div>
 
             <!-- Status -->
@@ -83,8 +116,7 @@
                 var categoryId = $(this).val();
                 if (categoryId) {
                     $.ajax({
-                        url: '/backend/categories/' + categoryId +
-                        '/brands', // Ensure the prefix is included
+                        url: '/backend/categories/' + categoryId + '/brands',
                         type: 'GET',
                         dataType: 'json',
                         success: function(data) {
@@ -106,5 +138,41 @@
                 }
             });
         });
+
+        function previewImage(input, previewId) {
+            var preview = document.getElementById(previewId);
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+            }
+        }
+
+        function previewMultipleImages(input, previewContainerId) {
+            var previewContainer = document.getElementById(previewContainerId);
+            previewContainer.innerHTML = ""; // Clear existing previews
+            var files = input.files;
+
+            Array.from(files).forEach(file => {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    var img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.style.maxWidth = "200px";
+                    img.style.margin = "10px";
+                    previewContainer.appendChild(img);
+                }
+
+                reader.readAsDataURL(file);
+            });
+        }
     </script>
 @endsection
